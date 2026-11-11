@@ -1,0 +1,65 @@
+@import '@fontsource/ibm-plex-sans/400.css';
+@import '@fontsource/ibm-plex-sans/500.css';
+@import '@fontsource/ibm-plex-sans/600.css';
+@import '@fontsource/ibm-plex-sans/700.css';
+@import '@fontsource/ibm-plex-mono/400.css';
+@import '@fontsource/ibm-plex-mono/600.css';
+@import '@fontsource/ibm-plex-mono/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root,
+[data-theme='dark'] {
+  --bg-app: #020617;
+  --bg-panel: #0f172a;
+  --bg-card: #1e293b;
+  --border-subtle: #334155;
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --accent-primary: #38bdf8;
+}
+
+[data-theme='light'] {
+  --bg-app: #f8fafc;
+  --bg-panel: #ffffff;
+  --bg-card: #f1f5f9;
+  --border-subtle: #cbd5e1;
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --accent-primary: #0284c7;
+}
+
+body {
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: 'IBM Plex Sans', system-ui, sans-serif;
+}
+
+/* Modo Exposición (Requisito G7): agranda escala base y oculta cursor tras 3 s de inactividad */
+.presentation-mode {
+  font-size: 112%;
+}
+
+.presentation-cursor-hidden,
+.presentation-cursor-hidden * {
+  cursor: none !important;
+}
+
+/* Transición de cambio de escena <= 400 ms (Requisito G13) */
+@keyframes sceneFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scene-transition {
+  animation: sceneFadeIn 280ms ease-out forwards;
+}
+
