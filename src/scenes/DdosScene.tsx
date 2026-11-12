@@ -327,7 +327,7 @@ export const DdosScene: React.FC<DdosSceneProps> = ({ theme }) => {
     <div className="flex-1 flex flex-col min-h-0 scene-transition">
       {/* Narrador Superior (Principio 1 y Requisito G6) */}
       <NarratorBar
-        sceneTitle="Escena 4 · Amplificación DDoS"
+        sceneTitle="Escena 3 · Amplificación DDoS"
         keyMessage="Una petición de 234 B puede generar 48.000 B hacia una víctima; dos líneas de configuración lo impiden."
         stepIndex={currentEventIndex}
         totalSteps={events.length}

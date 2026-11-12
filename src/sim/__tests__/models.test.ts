@@ -2,6 +2,13 @@ import { describe, it, expect } from 'vitest';
 import { evaluateForensicTimeline, FORENSIC_PRESETS, formatUtcFrom22h } from '../forense';
 import { evaluateSpoofServices } from '../spoof';
 import { calculateDdosMetrics } from '../ddos';
+import {
+  buildTrama108Response,
+  buildNtsProtectedFrame,
+  buildMonlistMode7Frame,
+  MONLIST_MODE7_HEADER_HEX,
+} from '../packets';
+
 
 describe('Escena 2: Peritaje Forense y SIEM', () => {
   it('S2.4: Con el preset "Orden invertido", el veredicto es invertido y la puerta aparece al final', () => {
@@ -100,6 +107,19 @@ describe('Escena 4: Amplificación DDoS monlist', () => {
     expect(res.isMitigated).toBe(true);
     expect(res.totalResponseBytes).toBe(0);
     expect(res.baf).toBe(0);
+  });
+
+  it('Construye las tramas NTP (Trama 108, NTS con 4 extensiones y Modo 7 monlist)', () => {
+    const resp = buildTrama108Response();
+    const nts = buildNtsProtectedFrame(false);
+    const mode7 = buildMonlistMode7Frame();
+
+    expect(resp.totalBytes).toBe(90);
+    expect(resp.hexBytes[42]).toBe('24'); // 0x24 Modo 4 Servidor
+    expect(nts.fields.filter((f) => f.layer === 'NTS')).toHaveLength(4);
+    expect(mode7.id).toBe('monlist-mode7');
+    expect(mode7.hexBytes.slice(42, 50).join(' ')).toBe(MONLIST_MODE7_HEADER_HEX);
+    expect(mode7.fields.some((f) => f.layer === 'Modo7')).toBe(true);
   });
 });
 

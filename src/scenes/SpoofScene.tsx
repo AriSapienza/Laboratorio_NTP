@@ -181,7 +181,7 @@ export const SpoofScene: React.FC<SpoofSceneProps> = ({ theme }) => {
     <div className="flex-1 flex flex-col min-h-0 scene-transition">
       {/* Narrador Superior (Principio 1 y Requisito G6) */}
       <NarratorBar
-        sceneTitle="Escena 3 · Time Spoofing y NTS"
+        sceneTitle="Escena 2 · Time Spoofing y NTS"
         keyMessage="Un solo paquete UDP 123 sin autenticar rompe 2FA, facturación y TLS; NTS lo vuelve inútil."
         stepIndex={currentEventIndex}
         totalSteps={events.length}

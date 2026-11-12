@@ -1,21 +1,18 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { SceneId, ThemeMode } from './types/lab';
 import { HeaderStepper } from './components/HeaderStepper';
-import { CoverScene } from './scenes/CoverScene';
-import { SyncScene } from './scenes/SyncScene';
 import { ForenseScene } from './scenes/ForenseScene';
 import { SpoofScene } from './scenes/SpoofScene';
 import { DdosScene } from './scenes/DdosScene';
 import { PresenterWindow } from './components/PresenterWindow';
 import { subscribePresenterCommands } from './sim/broadcast';
 
-
 function parseHashScene(): SceneId {
   const hash = window.location.hash.replace('#', '').toLowerCase();
-  if (hash === 'sync' || hash === 'forense' || hash === 'spoof' || hash === 'ddos' || hash === 'presenter') {
+  if (hash === 'forense' || hash === 'spoof' || hash === 'ddos' || hash === 'presenter') {
     return hash;
   }
-  return 'cover';
+  return 'forense';
 }
 
 export const App: React.FC = () => {
@@ -34,7 +31,7 @@ export const App: React.FC = () => {
 
   // Sincronización con hash de URL (Requisito G2)
   const navigateToScene = useCallback((scene: SceneId) => {
-    window.location.hash = scene === 'cover' ? '' : `#${scene}`;
+    window.location.hash = `#${scene}`;
     setActiveScene(scene);
   }, []);
 
@@ -107,26 +104,20 @@ export const App: React.FC = () => {
   }, [activeScene, navigateToScene]);
 
 
-  // Atajos Globales de Teclado: 0..4, F, R (Requisitos G2, G7, G9)
+  // Atajos Globales de Teclado: 1..3, F, R (Requisitos G2, G7, G9)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
       if (activeScene === 'presenter') return;
 
       switch (e.key) {
-        case '0':
-          navigateToScene('cover');
-          break;
         case '1':
-          navigateToScene('sync');
-          break;
-        case '2':
           navigateToScene('forense');
           break;
-        case '3':
+        case '2':
           navigateToScene('spoof');
           break;
-        case '4':
+        case '3':
           navigateToScene('ddos');
           break;
         case 'f':
@@ -174,10 +165,6 @@ export const App: React.FC = () => {
         onOpenPresenterWindow={openPresenterWindow}
       />
 
-      {activeScene === 'cover' && <CoverScene onSelectScene={navigateToScene} theme={theme} />}
-      {activeScene === 'sync' && (
-        <SyncScene key={`sync-${resetSignal}`} theme={theme} presentationMode={presentationMode} />
-      )}
       {activeScene === 'forense' && (
         <ForenseScene key={`forense-${resetSignal}`} theme={theme} presentationMode={presentationMode} />
       )}

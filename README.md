@@ -51,17 +51,15 @@ El archivo resultante se ubica en `dist/index.html` (~1.5 MB).
 
 | Escena | Tecla | Rango Temporal | Descripción Clave |
 | :--- | :---: | :---: | :--- |
-| **0. Portada** | `0` | 0:00 – 1:00 | Pregunta disparadora, tres pilares (Precisión, Evidencia y Seguridad) y nómina de autores. |
-| **1. Sincronización** | `1` | 1:00 – 4:00 | Algoritmo RFC 5905 ($T_1 \dots T_4$, $\theta$, $\delta$), error irreducible por ruta asimétrica, escalera de estratos (0–16) y comparación Step vs Slew. |
-| **2. Peritaje Forense** | `2` | 4:00 – 7:30 | Plano CAD interactivo, impacto de clock drift en correlación SIEM, detección de inversión causal y salida `chronyc tracking` / `ntpq -p`. |
-| **3. Time Spoofing y NTS** | `3` | 7:30 – 11:00 | Ataque MitM sobre UDP 123, 5 vectores temporales, impacto en TOTP/Kerberos/ARCA/TLS/DNSSEC y protección RFC 8915 (NTS-KE + AEAD). |
-| **4. Amplificación DDoS** | `4` | 11:00 – 14:00 | Comando Modo 7 `monlist` en Canvas a 60 FPS, factores BAF (205:1 y 556,9:1 US-CERT) y mitigación con directivas `ntp.conf` (Factor 0:1). |
+| **1. Peritaje Forense** | `1` | 0:00 – 3:30 | Plano CAD interactivo, impacto de clock drift en correlación SIEM, detección de inversión causal y salida `chronyc tracking` / `ntpq -p`. |
+| **2. Time Spoofing y NTS** | `2` | 3:30 – 7:00 | Ataque MitM sobre UDP 123, 5 vectores temporales, impacto en TOTP/Kerberos/ARCA/TLS/DNSSEC y protección RFC 8915 (NTS-KE + AEAD). |
+| **3. Amplificación DDoS** | `3` | 7:00 – 10:00 | Comando Modo 7 `monlist` en Canvas a 60 FPS, factores BAF (205:1 y 556,9:1 US-CERT) y mitigación con directivas `ntp.conf` (Factor 0:1). |
 
 ---
 
 ## ⌨️ Atajos Globales de Teclado
 
-- `0` a `4`: Navegación directa entre Portada y Escenas 1 a 4.
+- `1` a `3`: Navegación directa entre las Escenas 1 a 3.
 - `F`: Alternar **Modo Exposición** (Pantalla completa y ocultamiento automático del cursor tras 3 s).
 - `Espacio`: Pausar / Reanudar la simulación activa (`sim.t`).
 - `Flecha Derecha` / `Flecha Izquierda`: Paso a paso (adelante / atrás).

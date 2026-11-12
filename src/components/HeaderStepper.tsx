@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  Home,
-  Clock,
   FileSearch,
   ShieldAlert,
   Activity,
@@ -24,11 +22,9 @@ interface HeaderStepperProps {
 }
 
 const STEPS: { id: SceneId; keyNum: string; label: string; timeHint: string; icon: React.ReactNode }[] = [
-  { id: 'cover', keyNum: '0', label: 'Portada', timeHint: '0:00–1:00', icon: <Home className="w-4 h-4" /> },
-  { id: 'sync', keyNum: '1', label: 'Sincronización', timeHint: '1:00–4:00', icon: <Clock className="w-4 h-4" /> },
-  { id: 'forense', keyNum: '2', label: 'Peritaje Forense', timeHint: '4:00–7:30', icon: <FileSearch className="w-4 h-4" /> },
-  { id: 'spoof', keyNum: '3', label: 'Spoofing y NTS', timeHint: '7:30–11:00', icon: <ShieldAlert className="w-4 h-4" /> },
-  { id: 'ddos', keyNum: '4', label: 'Amplificación DDoS', timeHint: '11:00–14:00', icon: <Activity className="w-4 h-4" /> },
+  { id: 'forense', keyNum: '1', label: 'Peritaje Forense', timeHint: '0:00–3:30', icon: <FileSearch className="w-4 h-4" /> },
+  { id: 'spoof', keyNum: '2', label: 'Spoofing y NTS', timeHint: '3:30–7:00', icon: <ShieldAlert className="w-4 h-4" /> },
+  { id: 'ddos', keyNum: '3', label: 'Amplificación DDoS', timeHint: '7:00–10:00', icon: <Activity className="w-4 h-4" /> },
 ];
 
 export const HeaderStepper: React.FC<HeaderStepperProps> = ({
@@ -52,7 +48,7 @@ export const HeaderStepper: React.FC<HeaderStepperProps> = ({
       <div className="flex items-center gap-3">
         <button
           type="button"
-          onClick={() => onSelectScene('cover')}
+          onClick={() => onSelectScene('forense')}
           className="flex items-center gap-2 font-bold text-lg tracking-tight hover:text-sky-500 transition-colors"
         >
           <span

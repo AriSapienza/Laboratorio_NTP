@@ -34,42 +34,12 @@ interface ScriptSegment {
 
 const DEMO_SCRIPT: ScriptSegment[] = [
   {
-    scene: 'cover',
-    keyShortcut: '0',
-    timeRange: '0:00 – 1:00',
-    startSec: 0,
-    endSec: 60,
-    title: 'Apertura · Portada',
-    operatorActions: [
-      'Presentar al equipo y plantear la pregunta disparadora: ¿qué pasa si la hora está mal?',
-      'Señalar los tres ejes (precisión, evidencia forense y seguridad) y pulsar la tecla 1.',
-    ],
-    keySentence: 'La hora es una dependencia crítica de la seguridad, la facturación y la prueba digital.',
-    bridgePhrase: 'Veamos primero cómo calcula NTP la hora exacta sobre una red con demora variable.',
-  },
-  {
-    scene: 'sync',
-    keyShortcut: '1',
-    timeRange: '1:00 – 4:00',
-    startSec: 60,
-    endSec: 240,
-    title: 'Escena 1 · Sincronización (RFC 5905)',
-    operatorActions: [
-      'Ejecutar el preset "Enlace simétrico" y leer en voz alta θ (desfase) y δ (demora).',
-      'Cambiar al preset "Enlace asimétrico" (ida 40 ms, vuelta 200 ms) y pulsar "Corregir reloj": mostrar el error residual de 80 ms.',
-      'Hacer clic en el paquete (30 s) para mostrar la Trama 107/108 de 90 bytes en el Inspector.',
-    ],
-    keySentence: 'Cuatro marcas alcanzan para calcular el desfase, pero la asimetría deja un error irreducible.',
-    bridgePhrase:
-      'Si un reloj se equivoca por milisegundos es un detalle; si se equivoca por minutos, puede cambiar una causa judicial.',
-  },
-  {
     scene: 'forense',
-    keyShortcut: '2',
-    timeRange: '4:00 – 7:30',
-    startSec: 240,
-    endSec: 450,
-    title: 'Escena 2 · Peritaje Forense y SIEM',
+    keyShortcut: '1',
+    timeRange: '0:00 – 3:30',
+    startSec: 0,
+    endSec: 210,
+    title: 'Escena 1 · Peritaje Forense y SIEM',
     operatorActions: [
       'Activar el preset "Caso 22:15": mostrar que las horas son incorrectas pero el orden se conserva.',
       'Cambiar al preset "Orden invertido": señalar que la apertura de la puerta aparece al final del SIEM.',
@@ -80,11 +50,11 @@ const DEMO_SCRIPT: ScriptSegment[] = [
   },
   {
     scene: 'spoof',
-    keyShortcut: '3',
-    timeRange: '7:30 – 11:00',
-    startSec: 450,
-    endSec: 660,
-    title: 'Escena 3 · Time Spoofing y NTS (RFC 8915)',
+    keyShortcut: '2',
+    timeRange: '3:30 – 7:00',
+    startSec: 210,
+    endSec: 420,
+    title: 'Escena 2 · Time Spoofing y NTS (RFC 8915)',
     operatorActions: [
       'Probar vectores +45 s (falla TOTP), +10 min (caen Kerberos y ARCA) y -5 años sin NTS.',
       'Activar el interruptor NTS: mostrar el handshake NTS-KE (TCP 4460), el sello roto en el paquete alterado y los 5 servicios en verde.',
@@ -95,18 +65,17 @@ const DEMO_SCRIPT: ScriptSegment[] = [
   },
   {
     scene: 'ddos',
-    keyShortcut: '4',
-    timeRange: '11:00 – 14:00',
-    startSec: 660,
-    endSec: 840,
-    title: 'Escena 4 · Amplificación DDoS (monlist)',
+    keyShortcut: '3',
+    timeRange: '7:00 – 10:00',
+    startSec: 420,
+    endSec: 600,
+    title: 'Escena 3 · Amplificación DDoS (monlist)',
     operatorActions: [
       'Lanzar con 600 IPs (y mostrar casilla Caso US-CERT 556,9:1): observar la saturación de la víctima antes de los 3 s.',
       'Activar cualquier directiva de ntp.conf (disable monitor / noquery): el escudo corta el flujo y el tráfico cae a 0 B.',
-      'Pulsar la tecla 0 para regresar a la portada para el cierre.',
+      'Inspeccionar el paquete Modo 7 para concluir con las medidas de mitigación.',
     ],
     keySentence: 'Una petición chica provoca una respuesta enorme; dos líneas de configuración lo evitan.',
-    bridgePhrase: 'Volvamos a la portada para sintetizar las tres conclusiones del trabajo.',
   },
 ];
 
@@ -120,9 +89,9 @@ export const PresenterWindow: React.FC<PresenterWindowProps> = ({ theme }) => {
   const [elapsedSec, setElapsedSec] = useState(0);
   const [timerRunning, setTimerRunning] = useState(false);
   const [syncState, setSyncState] = useState<PresenterSyncMessage>({
-    scene: 'cover',
+    scene: 'forense',
     t: 0,
-    duration: 2.5,
+    duration: 3.2,
     playing: false,
     speed: 1,
     stepIndex: 0,
@@ -169,19 +138,13 @@ export const PresenterWindow: React.FC<PresenterWindowProps> = ({ theme }) => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
       switch (e.key) {
-        case '0':
-          sendPresenterCommand({ type: 'presenter-cmd', action: 'navigate', scene: 'cover' });
-          break;
         case '1':
-          sendPresenterCommand({ type: 'presenter-cmd', action: 'navigate', scene: 'sync' });
-          break;
-        case '2':
           sendPresenterCommand({ type: 'presenter-cmd', action: 'navigate', scene: 'forense' });
           break;
-        case '3':
+        case '2':
           sendPresenterCommand({ type: 'presenter-cmd', action: 'navigate', scene: 'spoof' });
           break;
-        case '4':
+        case '3':
           sendPresenterCommand({ type: 'presenter-cmd', action: 'navigate', scene: 'ddos' });
           break;
         case ' ':
@@ -425,7 +388,7 @@ export const PresenterWindow: React.FC<PresenterWindowProps> = ({ theme }) => {
             <ul className="text-sm space-y-1.5 font-mono">
               <li>• Animación lenta: Pausar (Espacio) y avanzar con Flecha Derecha (Paso a Paso).</li>
               <li>• Escena en mal estado: Pulsar tecla R para reiniciarla sin recargar la página.</li>
-              <li>• Regreso inmediato al inicio: Pulsar tecla 0 (Portada) o tecla F (Pantalla completa).</li>
+              <li>• Navegación directa: Pulsar teclas 1, 2 o 3 (o tecla F para Pantalla completa).</li>
             </ul>
           </div>
         </div>

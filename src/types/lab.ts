@@ -1,4 +1,4 @@
-export type SceneId = 'cover' | 'sync' | 'forense' | 'spoof' | 'ddos' | 'presenter';
+export type SceneId = 'forense' | 'spoof' | 'ddos' | 'presenter';
 export type SimSpeed = 0.25 | 0.5 | 1 | 2;
 export type ThemeMode = 'dark' | 'light';
 

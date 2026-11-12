@@ -253,7 +253,7 @@ export const ForenseScene: React.FC<ForenseSceneProps> = ({ theme }) => {
     <div className="flex-1 flex flex-col min-h-0 scene-transition">
       {/* Narrador Superior (Principio 1 y Requisito G6) */}
       <NarratorBar
-        sceneTitle="Escena 2 · Peritaje Forense"
+        sceneTitle="Escena 1 · Peritaje Forense"
         keyMessage="Si los relojes no están sincronizados, un registro puede contar los hechos en otro orden y la prueba pierde valor."
         stepIndex={currentEventIndex}
         totalSteps={events.length}
